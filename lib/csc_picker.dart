@@ -709,6 +709,9 @@ class CSCPickerState extends State<CSCPicker> {
         }
       });
     });
+    if (_states.isEmpty && _selectedCountry != null) {
+      _states.add(_selectedCountry);
+    }
     _states.sort((a, b) => a!.compareTo(b!));
     return _states;
   }
@@ -765,13 +768,13 @@ class CSCPickerState extends State<CSCPicker> {
         _cities.clear();
         _selectedState = widget.stateDropdownLabel;
         _selectedCity = widget.cityDropdownLabel;
-        this.widget.onStateChanged!(null);
-        this.widget.onCityChanged!(null);
+        this.widget.onStateChanged?.call(null);
+        this.widget.onCityChanged?.call(null);
         _selectedCountry = value;
         getStates();
       } else {
-        this.widget.onStateChanged!(_selectedState);
-        this.widget.onCityChanged!(_selectedCity);
+        this.widget.onStateChanged?.call(_selectedState);
+        this.widget.onCityChanged?.call(_selectedCity);
       }
     });
   }
@@ -784,11 +787,11 @@ class CSCPickerState extends State<CSCPicker> {
       if (value != _selectedState) {
         _cities.clear();
         _selectedCity = widget.cityDropdownLabel;
-        this.widget.onCityChanged!(null);
+        this.widget.onCityChanged?.call(null);
         _selectedState = value;
         getCities();
       } else {
-        this.widget.onCityChanged!(_selectedCity);
+        this.widget.onCityChanged?.call(_selectedCity);
       }
     });
   }
@@ -799,7 +802,7 @@ class CSCPickerState extends State<CSCPicker> {
       //code added in if condition
       if (value != _selectedCity) {
         _selectedCity = value;
-        this.widget.onCityChanged!(value);
+        this.widget.onCityChanged?.call(value);
       }
     });
   }
